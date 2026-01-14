@@ -161,7 +161,9 @@ async function main() {
   window.addEventListener("keydown", (e) => (keys[e.code] = true));
   window.addEventListener("keyup", (e) => (keys[e.code] = false));
 
-  canvas.addEventListener("click", () => canvas.requestPointerLock());
+  canvas.addEventListener("click", () =>
+    canvas.requestPointerLock({ unadjustedMovement: true }),
+  );
 
   document.addEventListener("mousemove", (e) => {
     if (document.pointerLockElement === canvas) {
