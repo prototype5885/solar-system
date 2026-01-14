@@ -161,9 +161,19 @@ async function main() {
   window.addEventListener("keydown", (e) => (keys[e.code] = true));
   window.addEventListener("keyup", (e) => (keys[e.code] = false));
 
-  canvas.addEventListener("click", () =>
-    canvas.requestPointerLock({ unadjustedMovement: true }),
-  );
+  canvas.addEventListener("click", async () => {
+    if (document.pointerLockElement !== canvas) {
+      try {
+        await canvas.requestPointerLock({ unadjustedMovement: true });
+      } catch (exception) {
+        console.warn(
+          "unadjustedMovement possibly not supported:",
+          exception.message,
+        );
+        await canvas.requestPointerLock();
+      }
+    }
+  });
 
   document.addEventListener("mousemove", (e) => {
     if (document.pointerLockElement === canvas) {
