@@ -169,8 +169,8 @@ async function main() {
       camPitch -= e.movementY * 0.002;
 
       // clamp when looking up/down
-      if (camPitch > 1.5) camPitch = 1.5;
-      if (camPitch < -1.5) camPitch = -1.5;
+      const limit = Math.PI / 2 - 0.01;
+      camPitch = Math.max(-limit, Math.min(limit, camPitch));
     }
   });
 
